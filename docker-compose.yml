@@ -1,0 +1,35 @@
+version: "3"
+
+services:
+  db:
+    image: postgres:13
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: example
+      POSTGRES_USER: example
+      POSTGRES_DB: example
+    ports:
+      - "5434:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      timeout: 5s
+      retries: 5
+
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "4000:4000"
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_USER: example
+      DB_PASSWORD: example
+      DB_HOST: db
+      DB_PORT: 5432
+      DB_NAME: example
+      DATABASE_URL: postgresql://example:example@db/example
+      API_KEY: 330c213d-3398-44a1-963b-b22c19c8d59c
