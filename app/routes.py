@@ -31,7 +31,7 @@ def agregar_cliente():
 def obtener_cliente_por_email(email):
     cliente = Cliente.query.filter_by(email=email).first()
     if cliente is None:
-        return jsonify({'message': 'Cliente no encontrado'}), 404
-    return jsonify({'id': cliente.id,
+        return jsonify({'is_blacklisted': False})
+    return jsonify({'is_blacklisted': True,
                     'reason': cliente.blocked_reason})
 
