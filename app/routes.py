@@ -3,14 +3,14 @@ from flask import Blueprint, request, jsonify
 from app.models import Cliente
 from app.schemas import ClienteSchema
 from app import db
-from app.utils import require_api_key
+from app.utils import require_static_token
 cliente_bp = Blueprint('cliente_bp', __name__)
 
 cliente_schema = ClienteSchema()
 clientes_schema = ClienteSchema(many=True)
 
 @cliente_bp.route('/', methods=['POST'])
-@require_api_key
+@require_static_token
 def agregar_cliente():
     try:
         email = request.json['email']
@@ -27,7 +27,7 @@ def agregar_cliente():
 
 
 @cliente_bp.route('/<string:email>', methods=['GET'])
-@require_api_key
+@require_static_token
 def obtener_cliente_por_email(email):
     cliente = Cliente.query.filter_by(email=email).first()
     if cliente is None:

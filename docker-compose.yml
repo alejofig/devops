@@ -32,4 +32,4 @@ services:
       DB_PORT: 5432
       DB_NAME: example
       DATABASE_URL: postgresql://example:example@db/example
-      API_KEY: 330c213d-3398-44a1-963b-b22c19c8d59c
+      STATIC_TOKEN: 330c213d-3398-44a1-963b-b22c19c8d59c
