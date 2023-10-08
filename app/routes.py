@@ -32,5 +32,6 @@ def obtener_cliente_por_email(email):
     cliente = Cliente.query.filter_by(email=email).first()
     if cliente is None:
         return jsonify({'message': 'Cliente no encontrado'}), 404
-    return jsonify(cliente_schema.dump(cliente))
+    return jsonify({'id': cliente.id,
+                    'reason': cliente.blocked_reason})
 
