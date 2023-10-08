@@ -3,8 +3,8 @@ from app import db
 
 class Cliente(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True, nullable=False, autoincrement=True)
-    app_uuid = db.Column(db.String, unique=True, nullable=False)
-    email = db.Column(db.String(100), nullable=False)
+    app_uuid = db.Column(db.String, nullable=False)
+    email = db.Column(db.String(100), unique=True,nullable=False)
     blocked_reason = db.Column(db.String(255))
     datetime_request = db.Column(db.DateTime, nullable=False)
     ip_request = db.Column(db.String(15), nullable=False)
