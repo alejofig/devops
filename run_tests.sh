@@ -29,7 +29,7 @@ cleanup() {
 }
 
 
-# Ejecutar el flujo de trabajo para pruebas de usuarios
+# Ejecutar el flujo de trabajo para pruebas del sistema
 echo "Running tests..."
 create_virtualenv
 pip install -r requirements.txt
