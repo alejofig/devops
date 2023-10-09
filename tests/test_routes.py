@@ -21,7 +21,6 @@ class TestClienteEndpoints(unittest.TestCase):
         self.ctx.pop()
 
     def get_auth_headers(self):
-        # Reemplaza 'tu_token_aqui' con el token de autorización real que deseas usar en tus pruebas.
         return {'Authorization': f'Bearer {STATIC_TOKEN}'}
 
     def test_agregar_cliente(self):
@@ -31,7 +30,6 @@ class TestClienteEndpoints(unittest.TestCase):
         }
         headers = self.get_auth_headers()
         response = self.client.post('/blacklists/', json=data, headers=headers)
-        print(response.data)
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertIn('id', data)
@@ -47,7 +45,6 @@ class TestClienteEndpoints(unittest.TestCase):
         db.session.commit()
         headers = self.get_auth_headers()
         response = self.client.get('/blacklists/test@example.com', headers=headers)
-        print(response.data)
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['is_blacklisted'], True)
@@ -55,7 +52,6 @@ class TestClienteEndpoints(unittest.TestCase):
     def test_obtener_cliente_inexistente_por_email(self):
         headers = self.get_auth_headers()
         response = self.client.get('/blacklists/nonexistent@example.com', headers=headers)
-        print(response.data)
         data = json.loads(response.data)
         self.assertEqual(response.status_code, 200)
         self.assertEqual(data['is_blacklisted'], False)
