@@ -1,0 +1,27 @@
+version: 0.2
+
+phases:
+  install:
+    runtime-versions:
+      python: 3.9
+  pre_build:
+    commands:
+      - echo "Installing dependencies"
+      - pip install -r requirements.txt
+      - echo "Starting PostgreSQL container"
+      - docker run --name my-postgres -e POSTGRES_PASSWORD=example -e POSTGRES_USER=example -e POSTGRES_DB=example -d -p 5434:5432 postgres:latest
+  build:
+    commands:
+      - echo "Running Tests"
+      - coverage run -m pytest tests/* -v
+      - echo "Running coverage report"
+      - coverage report --fail-under=70
+  post_build:
+    commands:
+      - echo "Stopping and removing PostgreSQL container"
+      - docker stop my-postgres
+      - docker rm my-postgres
+
+artifacts:
+  reports:
+    coverage: coverage.xml
