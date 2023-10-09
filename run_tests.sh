@@ -39,7 +39,7 @@ run_database 5434
 # sleep 5
 #kill "$uvicorn_pid"
 coverage run -m pytest tests/* -v
-coverage report
+coverage report --fail-under=70
 deactivate
 cleanup
 cd ..
